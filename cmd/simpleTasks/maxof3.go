@@ -1,3 +1,4 @@
+// Найти максимальное число из трех
 package main
 
 import "fmt"
