@@ -26,7 +26,7 @@ func main() {
 	fmt.Printf("%3d \n", arr2)
 
 	arr3 := [10]int{}
-	for i := 0; i < len(arr3); i++ { //summa 1 i 2 massiva zapisivaetsea v tretii
+	for i := range arr3 { //summa 1 i 2 massiva zapisivaetsea v tretii
 		arr3[i] = arr1[i] + arr2[i]
 	}
 	fmt.Printf("%3d \n", arr3)
