@@ -8,9 +8,10 @@ package main
 import "fmt"
 
 type Category struct {
-	Name        string
-	Description string
-	Products    []Product
+	Name          string
+	Description   string
+	Products      []Product
+	TotalQuantity int
 }
 
 type Product struct {
@@ -31,6 +32,22 @@ func main() {
 	categories := WriteCategories() //use function WriteCategories
 
 	fmt.Println(categories)
+
+	//  count all quantities all products for each categories
+	for i := range categories {
+		categories[i].TotalQuantity = TotalProductsQuantity(categories[i].Products)
+	}
+	fmt.Println(categories)
+
+	//found Max Price in all products for each categories
+	for j := range categories {
+		fmt.Printf("Max Price for %s categories : %f \n", categories[j].Name, MaxPrice(categories[j].Products))
+	}
+
+	//average Price for all products for each categories
+	for k := range categories {
+		fmt.Printf("Average Price for %s categories: %f \n", categories[k].Name, AveragePrice(categories[k].Products))
+	}
 }
 
 func WriteCategories() []Category {
@@ -98,4 +115,32 @@ func AddShops() []Shop {
 	}
 	return shops
 
+}
+
+func TotalProductsQuantity(products []Product) int {
+	var sum int
+	for _, product := range products {
+		sum += product.Quantity
+	}
+	return sum
+}
+
+func MaxPrice(products []Product) float32 {
+	var maxPrice float32
+	for _, product := range products {
+		if maxPrice < product.Price {
+			maxPrice = product.Price
+		}
+	}
+	return maxPrice
+}
+
+func AveragePrice(products []Product) float32 {
+	var averagePrice float32
+	var sumPrice float32
+	for _, product := range products {
+		sumPrice += product.Price
+	}
+	averagePrice = sumPrice / float32(len(products))
+	return averagePrice
 }
